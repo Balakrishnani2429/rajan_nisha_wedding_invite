@@ -8,4 +8,4 @@ To set the countdown date see below section in `js/clock.js`
 ````
 
 ## Screenshot
-![screenshot](https://repository-images.githubusercontent.com/698651028/d9cbed4d-10e2-44bd-bca8-e26a251ff182)
+<img width="1873" height="613" alt="image" src="https://github.com/user-attachments/assets/d4af1b47-8c26-4d67-996f-d8dfb71c8ee8" />
