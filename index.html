@@ -674,30 +674,23 @@
 							<div class="overlay"></div>
 						</div>
 						<p class="text-center" style="margin-top:20px;">
-							<small>Replace with your pre-wedding video link</small>
 						</p>
 					</div>
 				</div>
 			</div>
 		</div>
-		<!-- Background Music -->
-		<audio id="bgMusic" src="images/music.mp3" loop playsinline></audio>
+		<audio id="bgMusic" src="images/music.mp3" loop playsinline muted></audio>
 
-		<!-- Music Button -->
-		<div id="musicBtn" style="
-    position:fixed; bottom:20px; right:20px;
-    background:#ff0066; width:55px; height:55px;
-    border-radius:50%; display:flex; justify-content:center;
-    align-items:center; cursor:pointer; z-index:9999;
-    box-shadow:0 4px 15px rgba(0,0,0,0.3);
-">
+		<div id="musicBtn" style="position:fixed; bottom:20px; right:20px;
+background:#ff0066; width:55px; height:55px;
+border-radius:50%; display:flex; justify-content:center;
+align-items:center; cursor:pointer; z-index:9999;
+box-shadow:0 4px 15px rgba(0,0,0,0.3);">
 
-			<!-- Play Icon -->
 			<svg id="iconPlay" width="28" height="28" viewBox="0 0 24 24" fill="#fff" style="display:none;">
 				<path d="M3 22v-20l18 10-18 10z" />
 			</svg>
 
-			<!-- Pause Icon -->
 			<svg id="iconPause" width="28" height="28" viewBox="0 0 24 24" fill="#fff" style="display:block;">
 				<path d="M6 19h4v-14h-4v14zm8-14v14h4v-14h-4z" />
 			</svg>
@@ -716,17 +709,15 @@
 				audio.play().catch(() => {});
 			});
 
-			// Mobile unlock - required for iPhone/Android
+			// Mobile audio unlock
 			function unlockAudio() {
 				if (!unlocked) {
-					audio.muted = false;
-					audio.volume = 1.0;
+					audio.muted = false; // unmute after user gesture
 					audio.play().catch(() => {});
 					unlocked = true;
 				}
 			}
 
-			// First touch or click → unlock audio
 			document.addEventListener("touchstart", unlockAudio, {
 				once: true
 			});
@@ -734,9 +725,9 @@
 				once: true
 			});
 
-			// Music Toggle Button
+			// Toggle music
 			btn.addEventListener("click", () => {
-				unlockAudio(); // always unlock first
+				unlockAudio();
 
 				if (audio.paused) {
 					audio.play();
