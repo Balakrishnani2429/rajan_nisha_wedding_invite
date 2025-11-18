@@ -40,6 +40,62 @@
 	<link rel="stylesheet" href="css/owl.carousel.min.css">
 	<link rel="stylesheet" href="css/owl.theme.default.min.css">
 	<link rel="stylesheet" href="css/style.css">
+	<style>
+		/* Fix image scaling */
+		img {
+			max-width: 100%;
+			height: auto;
+		}
+
+		/* Make header title responsive */
+		#fh5co-header h1 {
+			font-size: 38px;
+		}
+
+		@media(max-width: 767px) {
+			#fh5co-header h1 {
+				font-size: 28px;
+			}
+
+			.romantic-text {
+				font-size: 26px !important;
+			}
+
+			h3 {
+				font-size: 20px !important;
+			}
+
+			.flipTimebox {
+				transform: scale(0.85);
+			}
+		}
+
+		/* Gallery responsive */
+		#fh5co-gallery-list li.one-third {
+			width: 100% !important;
+			height: 250px !important;
+		}
+
+		/* Timeline responsive (force) */
+		@media(max-width: 600px) {
+			.rn-timeline-block {
+				padding: 10px 20px !important;
+			}
+
+			.rn-timeline-content {
+				padding: 20px !important;
+			}
+
+			.rn-main-title {
+				font-size: 35px !important;
+			}
+		}
+
+		/* Event boxes responsiveness */
+		.event-wrap {
+			margin-bottom: 25px;
+		}
+	</style>
 
 	<!-- Additional Styles for More Attractiveness and Animations -->
 	<style>
@@ -161,6 +217,16 @@
 </head>
 
 <body>
+	<!-- Background Music -->
+	<!-- Hidden YouTube Player for Background Music -->
+	<div style="display:none;">
+		<iframe width="640" height="360"
+			src="https://www.youtube.com/embed/6uovvOtE-ws?list=PL9Tc2krbYdBvdlHTDNER07hi7sg5Z-3h3"
+			title="Creative Marriage Invitation |  Cinematic Save the Date video | Picha Vecha BGM | Inspire Studio"
+			frameborder="0"
+			allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+			referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+	</div>
 
 	<div class="fh5co-loader"></div>
 
@@ -228,11 +294,9 @@
 									<a href="https://wa.me/916383116102?text=Namaste!%20We%20are%20excited%20to%20attend%20Rajan%20&%20Nisha's%20love%20marriage%20on%2030.11.2025%20%F0%9F%A5%B0%F0%9F%8E%89"
 										class="btn btn-success btn-lg btn-bounce" target="_blank"
 										style="background:#25D366; border-color:#25D366;">
-										<i class="icon-whatsapp"></i> Confirm Attendance on WhatsApp
+										<i class="icon-whatsapp"></i> Wishes on WhatsApp
 									</a>
 								</p>
-								<small style="color:#fff; opacity:0.8;">(Please replace 9199xxxxxxxx with your
-									number)</small>
 							</div>
 						</div>
 					</div>
@@ -288,7 +352,7 @@
 									<div class="rn-timeline-icon">2023</div>
 									<div class="rn-timeline-content rn-fade-in">
 										<h3 class="rn-year">The Promise</h3>
-										<p>Under the stars at Marina Beach, he went down on one knee.<br>Nisha said YES
+										<p>Under the stars at Park, he went down on one knee.<br>Nisha said YES
 											with happy tears.</p>
 									</div>
 								</div>
@@ -598,29 +662,85 @@
 			</div>
 		</div>
 
-		<!-- Video Highlights -->
 		<div id="fh5co-services" class="fh5co-section-gray">
 			<div class="container">
-				<div class="row animate-box" data-animate-effect="fadeIn">
-					<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-						<h2>Love Story Video</h2>
-						<p>Watch our romantic journey together</p> <!-- Updated -->
-					</div>
-				</div>
+				<!-- your video block -->
 				<div class="row">
 					<div class="col-md-8 col-md-offset-2">
 						<div class="fh5co-video fh5co-bg animate-box" data-animate-effect="pulse"
 							style="background-image: url(images/img_bg_3.jpg);">
-							<a href="https://www.youtube.com/v/your-video-id" class="popup-vimeo"><i
-									class="icon-video2"></i></a>
+							<video autoplay loop muted playsinline controls style="width:100%;border-radius:10px;">
+								<source src="images/movie.mp4" type="video/mp4">
+							</video>
 							<div class="overlay"></div>
 						</div>
-						<p class="text-center" style="margin-top:20px;"><small>Replace with your pre-wedding video
-								link</small></p>
+						<p class="text-center" style="margin-top:20px;">
+							<small>Replace with your pre-wedding video link</small>
+						</p>
 					</div>
 				</div>
 			</div>
 		</div>
+		<audio id="bgMusic" src="images/music.mp3" autoplay muted loop></audio>
+
+		<!-- Music Button -->
+		<div id="musicBtn" style="position:fixed; bottom:20px; right:20px;
+    background:#ff0066; width:55px; height:55px;
+    border-radius:50%; display:flex; justify-content:center;
+    align-items:center; cursor:pointer; z-index:9999;
+    box-shadow:0 4px 15px rgba(0,0,0,0.3);">
+
+			<!-- Play Icon -->
+			<svg id="iconPlay" width="28" height="28" viewBox="0 0 24 24" fill="#fff" style="display:none;">
+				<path d="M3 22v-20l18 10-18 10z" />
+			</svg>
+
+			<!-- Pause Icon -->
+			<svg id="iconPause" width="28" height="28" viewBox="0 0 24 24" fill="#fff" style="display:block;">
+				<path d="M6 19h4v-14h-4v14zm8-14v14h4v-14h-4z" />
+			</svg>
+		</div>
+
+		<script>
+			const audio = document.getElementById("bgMusic");
+			const btn = document.getElementById("musicBtn");
+			const iconPlay = document.getElementById("iconPlay");
+			const iconPause = document.getElementById("iconPause");
+
+			// Try autoplay (desktop supports)
+			window.addEventListener("load", () => {
+				audio.play().catch(() => {});
+			});
+
+			// Required for Mobile (unlock audio)
+			function enableSound() {
+				audio.muted = false;
+				audio.volume = 1.0;
+				audio.play();
+				document.removeEventListener("touchstart", enableSound);
+				document.removeEventListener("click", enableSound);
+			}
+			document.addEventListener("touchstart", enableSound, {
+				once: true
+			});
+			document.addEventListener("click", enableSound, {
+				once: true
+			});
+
+			// Play/Pause button control
+			btn.addEventListener("click", () => {
+				if (audio.paused) {
+					audio.play();
+					iconPlay.style.display = "none";
+					iconPause.style.display = "block";
+				} else {
+					audio.pause();
+					iconPlay.style.display = "block";
+					iconPause.style.display = "none";
+				}
+			});
+		</script>
+
 
 		<div class="gototop js-top">
 			<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
