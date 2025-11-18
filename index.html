@@ -680,14 +680,17 @@
 				</div>
 			</div>
 		</div>
-		<audio id="bgMusic" src="images/music.mp3" autoplay muted loop></audio>
+		<!-- Background Music -->
+		<audio id="bgMusic" src="images/music.mp3" loop playsinline></audio>
 
 		<!-- Music Button -->
-		<div id="musicBtn" style="position:fixed; bottom:20px; right:20px;
+		<div id="musicBtn" style="
+    position:fixed; bottom:20px; right:20px;
     background:#ff0066; width:55px; height:55px;
     border-radius:50%; display:flex; justify-content:center;
     align-items:center; cursor:pointer; z-index:9999;
-    box-shadow:0 4px 15px rgba(0,0,0,0.3);">
+    box-shadow:0 4px 15px rgba(0,0,0,0.3);
+">
 
 			<!-- Play Icon -->
 			<svg id="iconPlay" width="28" height="28" viewBox="0 0 24 24" fill="#fff" style="display:none;">
@@ -706,28 +709,35 @@
 			const iconPlay = document.getElementById("iconPlay");
 			const iconPause = document.getElementById("iconPause");
 
-			// Try autoplay (desktop supports)
+			let unlocked = false;
+
+			// Desktop autoplay attempt
 			window.addEventListener("load", () => {
 				audio.play().catch(() => {});
 			});
 
-			// Required for Mobile (unlock audio)
-			function enableSound() {
-				audio.muted = false;
-				audio.volume = 1.0;
-				audio.play();
-				document.removeEventListener("touchstart", enableSound);
-				document.removeEventListener("click", enableSound);
+			// Mobile unlock - required for iPhone/Android
+			function unlockAudio() {
+				if (!unlocked) {
+					audio.muted = false;
+					audio.volume = 1.0;
+					audio.play().catch(() => {});
+					unlocked = true;
+				}
 			}
-			document.addEventListener("touchstart", enableSound, {
+
+			// First touch or click → unlock audio
+			document.addEventListener("touchstart", unlockAudio, {
 				once: true
 			});
-			document.addEventListener("click", enableSound, {
+			document.addEventListener("click", unlockAudio, {
 				once: true
 			});
 
-			// Play/Pause button control
+			// Music Toggle Button
 			btn.addEventListener("click", () => {
+				unlockAudio(); // always unlock first
+
 				if (audio.paused) {
 					audio.play();
 					iconPlay.style.display = "none";
